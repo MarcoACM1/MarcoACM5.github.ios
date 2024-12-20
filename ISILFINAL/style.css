@@ -1,0 +1,21 @@
+.ab{
+    font-family: "Fjalla One", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .ojo{
+    display: flex;
+    justify-content: end;
+    
+  }
+
+  .bx-show-alt{
+    font-size: 24px;
+    cursor: pointer;
+    transform: translateY(-125%);
+
+    padding-right: 8px;
+}
+
+  

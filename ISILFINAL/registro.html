@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body class="bg-info-subtle">
+    <nav class="navbar navbar-expand-lg bg-info-subtle">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html"><img src="img/lo.png" alt="" height="50px" width="60px"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="sucursales.html"><strong>Sucursales</strong></a>
+              <a class="nav-link" href="contactos.html"><strong>Contactos</strong></a>
+              <a class="nav-link" href="login.html"><strong>login</strong></a>
+            </div>
+          </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1><ins>Registro</ins></h1>
+        <p>Ingrese al sistema</p>
+    </div>
+    <div class="container">
+        <div class="form-group">
+          <label class="col-form-label" >e-mail:</label>
+          <input id="email" class="form-control" type="text" required>
+          </div>
+          
+  
+        <div class="form-group">
+          <label class="col-form-label">contraseña:</label>
+          <input id="pass" class="form-control" type="password" required>
+          <div class="ojo">
+          <i id="icon" class='bx bx-show-alt'></i>
+          </div>          
+        </div>
+        <div class="form-group mt-2 mb-0">
+          <input class="mb-5" type="checkbox">Recordar cuenta
+          </div>
+        <button onclick="enviar()" >Enviar</button>
+        <hr>
+
+  
+      </div>
+
+
+
+
+
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyB_I_rbTKxbMbdZ8ZMRN23FOIHGH3ry4ts",
+          authDomain: "usuarios-isil-38d5f.firebaseapp.com",
+          projectId: "usuarios-isil-38d5f",
+          storageBucket: "usuarios-isil-38d5f.firebasestorage.app",
+          messagingSenderId: "990918975838",
+          appId: "1:990918975838:web:487ac5ae7ce8e251c5afcf"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+
+        //registro
+        window.enviar = function enviar() {
+          var email = document.getElementById('email').value;
+          var pass = document.getElementById('pass').value;
+
+        createUserWithEmailAndPassword(auth, email, pass) //crear user
+        .then((userCredential) => { 
+          const user = userCredential.user; 
+          console.log('Usuario registrado:', user); 
+          sendEmailVerification(auth.currentUser)//verificar user
+            .then(() => {
+            console.log('Verificar correro electronico:', user);
+            alert('Verificar correro electronico' );
+    
+          });
+        })
+          .catch((error) => {
+             const errorCode = error.code; const errorMessage = error.message; console.error('Error al registrar usuario:', errorCode, errorMessage);
+             alert('Error al registrar el usuario' + errorMessage); 
+            });
+        };
+
+        // Monitorear cambios en el estado de autenticación
+
+      onAuthStateChanged(auth, (user) => {
+      const loginStatus = document.getElementById('login');
+
+      const logoutButton = document.getElementById('logout');
+      if (user) {
+
+      loginStatus.innerHTML = `Usuario Logueado: ${user.email}`;
+
+      logoutButton.style.display = 'block';
+
+      } else {
+      loginStatus.innerHTML = "No Logueado";
+      logoutButton.style.display = 'none';
+
+      }
+
+      });
+             
+
+
+    </script>
+
+
+
+    
+
+    
+    
+    
+
+    
+
+      <div class="container">
+
+        <footer class="py-3 my-4">
+      
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+      
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+      
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+      
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+      
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+      
+          </ul>
+      
+          <p class="text-center text-body-secondary">© 2024 ISIL</p>
+      
+        </footer>
+      
+      </div>
+</body>
+</html>
